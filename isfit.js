@@ -1,6 +1,9 @@
 const init = require('./isfitInit');
-const amq = require('./isfitAmq');
-const protocol = require('./isfitProtocol');
+
+module.exports={
+    isfit_global : init
+};
+
 
 function run(){
     console.log('------------------isfit---------fbs----------running---------')
