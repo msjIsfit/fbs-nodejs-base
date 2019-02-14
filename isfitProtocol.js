@@ -8,7 +8,7 @@ exports.protocols = {};
 exports.db = null;
 function prepare() {
     var fs = require("fs");
-    var file = "db/protocol.db";
+    var file = __dirname + "/db/protocol.db";
     var exists = fs.existsSync(file);
     if (!exists) {
         console.log("Creating DB file.");

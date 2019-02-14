@@ -1,7 +1,7 @@
 {
   "name": "isfit-fbs-base",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.2",
+  "description": "isfit nodejs lib",
   "main": "isfit.js",
   "dependencies": {
     "mongodb": "^3.1.10",
@@ -13,14 +13,15 @@
     "xlsx": "^0.14.1"
   },
   "devDependencies": {},
+  "repository": { 
+    "type": "git", 
+    "url": "git+https://github.com/msjIsfit/fbs-nodejs-base.git" 
+    }, 
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "isfit"
-  ],
-  "files": [
-    "lib"
   ],
   "author": "zhangwei",
   "license": "ISC"

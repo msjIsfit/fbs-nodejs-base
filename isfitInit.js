@@ -35,7 +35,7 @@ isfit_gobal.init = function beginIsFit() {
 }
 
 isfit_gobal.attach = function attach() {
-    glob.sync(pathInit + "*.js").forEach(function (file) {
+    glob.sync(__dirname + "/*.js").forEach(function (file) {
 
         if (file != './' && file.indexOf('isfitInit.js') == -1
             && file.indexOf('Amq.js') == -1) {
