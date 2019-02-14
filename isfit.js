@@ -1,7 +1,11 @@
 const init = require('./isfitInit');
-
+const isfitCfg = require('./isfitCfg')
+const isfitPro = require('./isfitProtocol')
 module.exports={
-    isfit_global : init
+    isfit_global : init,
+    isfitCfg : isfitCfg,
+    isfitPro : isfitPro
+    
 };
 
 
