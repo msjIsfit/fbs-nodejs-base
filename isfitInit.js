@@ -206,7 +206,7 @@ function initModule(emitter, port) {
 
 
 
-    glob.sync(pathInit + "*.js").forEach(function (file) {
+    glob.sync(__dirname + "*.js").forEach(function (file) {
 
         if (file != './' && file.indexOf('isfitInit') == -1
             && file.indexOf('Amq.js') == -1) {
@@ -251,7 +251,7 @@ function isMysqlParamEqual(p1, p2) {
 }
 
 let init = true;
-let pathInit = ""
+
 const mysql = require('mysql2')
 
 function onInfo(msg) {
