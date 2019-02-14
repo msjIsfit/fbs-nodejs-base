@@ -34,6 +34,7 @@ isfit_gobal.init = function beginIsFit() {
     regModule(isfit_gobal.emitter);
 }
 
+
 isfit_gobal.attach = function attach() {
     glob.sync(__dirname + "/*.js").forEach(function (file) {
 
