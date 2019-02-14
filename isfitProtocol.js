@@ -1,41 +1,48 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var rp = require('request-promise');
-const sqlite3 = require("sqlite3").verbose();
-let db = null;
-exports.servers = {};
-exports.protocols = {};
+//const sqlite3 = require("sqlite3").verbose();
+const lowDB = require('lowdb');
+
+exports.servers = null;
+exports.protocols = null;
 exports.db = null;
 function prepare() {
-    var fs = require("fs");
-    var file = __dirname + "/db/protocol.db";
-    var exists = fs.existsSync(file);
-    if (!exists) {
-        console.log("Creating DB file.");
-        fs.openSync(file, "w");
-    }
-    db = new sqlite3.Database(file);
+    //var fs = require("fs");
+    var file = __dirname + "/db/protocol.json";
+    const FileSync = require('lowdb/adapters/FileSync')
+    const adapter = new FileSync(file)
+
+
+    let db = lowDB(adapter);
+    db.defaults({ protocol: [], server: []}).write()
     exports.db = db;
-    refreshData();
+    exports.protocols = db.get('protocol'); 
+    exports.servers = db.get('server');
+    
+    //refreshData();
 }
+/*
 function refreshData() {
     //getInfo("select * from server", exports.servers);
     getInfo("select * from protocol", exports.protocols);
-}
-exports.refreshData = refreshData;
+}*/
+//exports.refreshData = refreshData;
 function saveProtocol(info) {
     if (info) {
-        let sql = `insert into protocol(name,method,body,url) 
-                values('${info.name}','${info.method}','${info.body}','${info.url}')`;
-        db.run(sql);
+        if(exports.protocols){
+            exports.protocols.remove({name:info.name}).write();
+            exports.protocols.push(info).write();
+        }
     }
 }
 exports.saveProtocol = saveProtocol;
 function saveServer(info) {
     if (info) {
-        let sql = `insert into server(name,host,user,pswd,note)  
-            values('${info.name}','${info.host}','${info.user}','${info.pswd}','${info.note}')`;
-        db.run(sql);
+        if(exports.servers){
+            exports.servers.remove({name:info.name}).write();
+            exports.servers.push(info).write();
+        }
     }
 }
 exports.saveServer = saveServer;
@@ -45,6 +52,9 @@ function asynSend(name, svrInfo, params) {
             if (rep) {
                 if (rep.result) {
                     fulfill(rep.result);
+                }
+                else if(rep){
+                    fulfill(rep);
                 }
                 else if (rep.error) {
                     console.error(JSON.stringify(rep) + " request :" + JSON.stringify(params));
@@ -60,7 +70,11 @@ function asynSend(name, svrInfo, params) {
 exports.asynSend = asynSend;
 function sendProtocol(name, svrinfo, params) {
     if (svrinfo && exports.protocols) {
-        let template = exports.protocols[name];
+
+        let template = exports.protocols.find({name:name});
+        if(template){
+            template = template.value();
+        }
         let body = null;
         let url = '';
         if (template) {
@@ -76,17 +90,34 @@ function sendProtocol(name, svrinfo, params) {
                         url = url.replace("??" + tname + "??", value);
                     }
                 }
-                body = JSON.parse(pbody);
+                if(body){
+                    body = JSON.parse(pbody);
+                }
+                else{
+                    body = null;
+                }
+                
             }
-            let options = {
-                uri: svrinfo.host + "/" + encodeURI(url),
-                method: template.method,
-                json: true,
-                body: body
-            };
-            return rp(options);
-        }
+            if(url){
+                let options = {
+                    uri: svrinfo.host + "/" + encodeURI(url),
+                    method: template.method,
+                    json: true,
+                    body: body
+                };
+                return rp(options);
+
+            }
+           
+            
+        }        
     }
+    return new Promise(function(resolve, reject) {
+        let err = "protocol not found " + name;
+        console.error(err);
+        reject(err);
+      });
+
 }
 exports.sendProtocol = sendProtocol;
 prepare();

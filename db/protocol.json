@@ -1,0 +1,62 @@
+{
+  "protocol": [
+    {
+      "name": "createObj",
+      "body": "{\n    \"jsonrpc\": \"2.0\",\n    \"params\": {\n        \"obj\": {\n            \"templateId\": \"??templateId??\",\n            \"parentId\": \"??parentId??\",\n            \"businessId\":\"??businessId??\"\n        },\n        \"count\": 1,\n        \"names\": [\n            \"??name??\"\n        ]\n    },\n    \"method\": \"\",\n    \"id\": \"1\"\n}",
+      "method": "POST",
+      "url": "objs/"
+    },
+    {
+      "name": "addResource",
+      "body": "{\"jsonrpc\":\"2.0\",\"params\":{\"obj\":??item??},\"method\":\"\",\"id\":\"\"}",
+      "method": "POST",
+      "url": "resource/??name??/??id??"
+    },
+    {
+      "name": "getAllMemberInResource",
+      "body": null,
+      "method": "GET",
+      "url": "resource/??name??"
+    },
+    {
+      "name": "svrInfo",
+      "body": null,
+      "method": "GET",
+      "url": "maintain/cmd/ServerInfo"
+    },
+    {
+      "name": "fbsInfo",
+      "body": null,
+      "method": "GET",
+      "url": "maintain/cmd/fbsInfo"
+    },
+    {
+      "name": "addGateway",
+      "body": "{\n    \"jsonrpc\": \"2.0\",\n    \"params\": {\n        \"obj\": {\n           \"ip\":\"??ip??\",\n           \"port\":\"??port??\",\n          \"pswd\":\"??password??\",\n           \"serverId\":\"??serverId??\",\n           \"userName\":\"??userName??\",\n           \"gatewayId\":\"??gatewayId??\"\n        }\n    \n    },\n    \"method\": \"\",\n    \"id\": \"1\"\n}",
+      "method": "POST",
+      "url": "resource/gateway/??gatewayId??"
+    },
+    {
+      "name": "addTemplate",
+      "body": "{\n    \"jsonrpc\": \"2.0\",\n    \"params\": {\n        \"obj\": {\n           \"body\":\"??body??\",\n           \"className\":\"??className??\",\n           \"md5\":\"??md5??\",\n           \"templateId\":\"??templateId??\"\n        }\n    \n    },\n    \"method\": \"\",\n    \"id\": \"1\"\n}",
+      "method": "POST",
+      "url": "resource/template/??templateId??"
+    }
+  ],
+  "server": [
+    {
+      "name": "local",
+      "host": "http://127.0.0.1:8080",
+      "user": "admin",
+      "pswd": "123456",
+      "note": null
+    },
+    {
+      "name": "chen",
+      "host": "http://192.168.1.218:8080",
+      "user": "admin",
+      "pswd": "123456",
+      "note": null
+    }
+  ]
+}

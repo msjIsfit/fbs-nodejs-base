@@ -1,24 +1,27 @@
 {
   "name": "isfit-fbs-base",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "isfit nodejs lib",
   "main": "isfit.js",
   "dependencies": {
+    "lowdb": "^1.0.0",
     "mongodb": "^3.1.10",
     "mysql2": "^1.6.4",
+    "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "socket.io": "^2.2.0",
-    "sqlite3": "^4.0.6",
     "stomp-client": "^0.9.0",
     "xlsx": "^0.14.1"
   },
-  "devDependencies": {},
-  "repository": { 
-    "type": "git", 
-    "url": "git+https://github.com/msjIsfit/fbs-nodejs-base.git" 
-    }, 
+  "devDependencies": {
+    "sqlite3": "^4.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/msjIsfit/fbs-nodejs-base.git"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [
     "isfit"
