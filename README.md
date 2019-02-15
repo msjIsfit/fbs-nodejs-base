@@ -26,8 +26,12 @@ let isfit = require（‘isfit-fbs-base’）
 从消息队列中获取数据库配置信息，连接数据库
 
 开发fbs的基础步骤：
+
 1.建立一个nodejs express工程
+
 2.npm isfit-fbs-base -save
+
+
 一般部署时fbs和bss在同一服务器中（或docker）因而fbs中bss的默认地址为http://127.0.0.1:8080
 
 常用例子：
