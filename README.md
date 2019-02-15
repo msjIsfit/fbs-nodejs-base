@@ -22,14 +22,16 @@ let isfit = require（‘isfit-fbs-base’）
 常用例子：
 router.post('/reinit',function(req,res){
 
+
   if(req.body.host && req.body.username && req.body.password){
     let host = req.body.host;
     let username = req.body.username;
     let password = req.body.password;
-    //res.send('OK');
     //let isfit = require('isfit-fbs-base').isfit_global;
     isfit.reInit(host,username,password,__dirname.replace('routes','isfit_template'),res);
+    
   }
+
 });
 
 这个例子重新设置bss地址，isfit.reinit将指定目录的模板同步到指定bss上，同时更新自己的数据库和消息队列地址，
