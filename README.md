@@ -22,11 +22,12 @@ let isfit = require（‘isfit-fbs-base’）
 常用例子：
 router.post('/reinit',function(req,res){
 
-
   if(req.body.host && req.body.username && req.body.password){
+  
     let host = req.body.host;
     let username = req.body.username;
     let password = req.body.password;
+    
     //let isfit = require('isfit-fbs-base').isfit_global;
     isfit.reInit(host,username,password,__dirname.replace('routes','isfit_template'),res);
     
