@@ -90,7 +90,7 @@ function sendProtocol(name, svrinfo, params) {
                         url = url.replace("??" + tname + "??", value);
                     }
                 }
-                if(body){
+                if(pbody){
                     body = JSON.parse(pbody);
                 }
                 else{
