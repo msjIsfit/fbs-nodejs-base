@@ -41,7 +41,18 @@
       "body": "{\n    \"jsonrpc\": \"2.0\",\n    \"params\": {\n        \"obj\": {\n           \"body\":\"??body??\",\n           \"className\":\"??className??\",\n           \"md5\":\"??md5??\",\n           \"templateId\":\"??templateId??\"\n        }\n    \n    },\n    \"method\": \"\",\n    \"id\": \"1\"\n}",
       "method": "POST",
       "url": "resource/template/??templateId??"
+    },
+    {
+      "name": "getObjInfo",
+      "method" : "GET",
+      "url": "resource/obj/??objId??"
+    },
+    {
+      "name": "getInfo",
+      "method" : "GET",
+      "url": "resource/??name??/??id??"
     }
+
   ],
   "server": [
     {
