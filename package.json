@@ -1,9 +1,10 @@
 {
   "name": "isfit-fbs-base",
-  "version": "1.0.8",
+  "version": "1.0.81",
   "description": "isfit nodejs lib",
   "main": "isfit.js",
   "dependencies": {
+    "log4js": "^4.0.2",
     "lowdb": "^1.0.0",
     "mongodb": "^3.1.10",
     "mysql2": "^1.6.4",

@@ -44,15 +44,19 @@
     },
     {
       "name": "getObjInfo",
-      "method" : "GET",
+      "method": "GET",
       "url": "resource/obj/??objId??"
     },
     {
-      "name": "getInfo",
-      "method" : "GET",
+      "name": "getInfoById",
+      "method": "GET",
       "url": "resource/??name??/??id??"
+    },
+    {
+      "name": "test",
+      "url": "s?word=??sword??",
+      "method": "GET"
     }
-
   ],
   "server": [
     {
