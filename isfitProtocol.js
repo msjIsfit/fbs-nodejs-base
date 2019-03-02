@@ -53,12 +53,13 @@ function asynSend(name, svrInfo, params) {
                 if (rep.result) {
                     fulfill(rep.result);
                 }
-                else if(rep){
-                    fulfill(rep);
-                }
+                
                 else if (rep.error) {
                     console.error(JSON.stringify(rep) + " request :" + JSON.stringify(params));
                     reject(rep.error);
+                }
+                else{
+                    fulfill({});
                 }
             }
         }).catch((error) => {

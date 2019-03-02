@@ -10,6 +10,8 @@ isfit_gobal.mysqlParm mysql配置
 isfit_gobal.mongodbPram mongodb配置
 isfit_gobal.bssCfg bss配置
 
+        io.set('transports', ['websocket', 'xhr-polling', 'jsonp-polling', 'htmlfile', 'flashsocket']);
+        io.set('origins', '*:*');
 */
 var isfit_gobal = exports
 const fs = require('fs');

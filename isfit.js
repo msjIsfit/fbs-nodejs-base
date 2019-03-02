@@ -7,7 +7,6 @@ module.exports={
     isfitCfg : isfitCfg,
     isfitPro : isfitPro,
     isfitAMQ : isfitAMQ,
-
 };
 
 

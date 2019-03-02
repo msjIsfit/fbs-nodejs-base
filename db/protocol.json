@@ -48,6 +48,17 @@
       "url": "resource/obj/??objId??"
     },
     {
+      "name":"defaultGET",
+      "method:":"GET",
+      "url":"??url??"
+
+    },
+    {
+      "name": "getCfgByObjId",
+      "method": "GET",
+      "url": "objs/cfgvalue/??objId??"
+    },
+    {
       "name": "getInfoById",
       "method": "GET",
       "url": "resource/??name??/??id??"
