@@ -53,6 +53,35 @@ router.post('/reinit',function(req,res){
 这个例子重新设置bss地址，isfit.reinit将指定目录的模板同步到指定bss上，同时更新自己的数据库和消息队列地址，
 完成后，reinit调用exit让nodejs退出，pm2会重新启动nodejs。
 
+使用数据库的例子：
+
+const isfit = require('isfit-fbs-base');
+var express = require('express');
+var router = express.Router();
+router.get('/objs',function(req,res){
+    isfit.isfit_global.mysql.query('select * from obj_monitored',function(err, rows, fields){
+        if(err){
+            res.send(err);
+        }
+        if(rows){
+            res.send(rows);
+        }
+    })
+})
+
+router.get('/trajectoryHistory',function(req,res){
+    isfit.isfit_global.mongodb.collection("trajectoryHistory"). find({}).toArray(function(err, result) { // 返回集合中所有数据
+        if (err) throw err;
+        res.send(result);
+        //db.close();
+    });
+})
+module.exports = router;
+
+
+
+
+背景知识
 FBS
 FBS是前置业务服务器的意思，在IsFit中有BSS，BSS是后端业务服务器。BSS主要处理数据和协议的接入（设备管理，连接管理）。而FBS将处理与客户和流程相关的业务，这些业务包括用户认证与权限，用户告警推送，用户的其他业务逻辑。
 FBS使用nodejs开发，对于和设备相关的功能与BSS通过消息队列和Restful API通讯，FBS和BSS通用一套mysql和mongoDB。FBS将可作为IsFit的一个微服无整合到整个系统中。
