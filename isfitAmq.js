@@ -71,6 +71,7 @@ class AMQQueenClient{
   }
 
   sendMsg(destination,msg){
+    console.log("================sendmsg========");
     if(this.client){
       this.client.publish(destination,msg);
     }

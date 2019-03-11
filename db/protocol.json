@@ -64,9 +64,19 @@
       "url": "resource/??name??/??id??"
     },
     {
+      "name": "deleteResource",
+      "method": "DELETE",
+      "url": "resource/??name??/??id??"
+    },
+    {
       "name": "test",
       "url": "s?word=??sword??",
       "method": "GET"
+    },
+    {
+      "name": "autocfg",
+      "url": "/autoCfg/??gatewayId??",
+      "method": "PUT"
     }
   ],
   "server": [
@@ -84,5 +94,6 @@
       "pswd": "123456",
       "note": null
     }
+
   ]
 }
