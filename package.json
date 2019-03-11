@@ -1,6 +1,6 @@
 {
   "name": "isfit-fbs-base",
-  "version": "1.0.83",
+  "version": "1.0.85",
   "description": "isfit nodejs lib",
   "main": "isfit.js",
   "dependencies": {
