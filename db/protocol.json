@@ -75,7 +75,7 @@
     },
     {
       "name": "autocfg",
-      "url": "/autoCfg/??gatewayId??",
+      "url": "/autocfg/??gatewayId??",
       "method": "PUT"
     }
   ],
