@@ -303,7 +303,9 @@ function onInfo(msg) {
                     console.log("db connecting---------------" + JSON.stringify(mongoParam));
                     isfit_gobal.mongoParam = mongoParam;
                     init = false;
-                    isfit_gobal.mongodb = db;
+                    //接数据库，不释放参考：https://www.compose.com/articles/connection-pooling-with-mongodb/
+                    isfit_gobal.mongodb = db.db(mongoParam.database);
+                    //isfit_gobal.mongodb = db;
                     isfit_gobal.emitter.emit("mongoReady", isfit_gobal.mongoDB);
                     glob.sync("./fbs/*.js").forEach(function (file) {
 
