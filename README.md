@@ -34,7 +34,10 @@ let isfit = require（‘isfit-fbs-base’）
 
 一般部署时fbs和bss在同一服务器中（或docker）因而fbs中bss的默认地址为http://127.0.0.1:8080
 
-常用例子：
+常用例子：</br>
+
+
+```javascript
 router.post('/reinit',function(req,res){
 
   if(req.body.host && req.body.username && req.body.password){
@@ -43,18 +46,19 @@ router.post('/reinit',function(req,res){
     let username = req.body.username;
     let password = req.body.password;
     
-    //let isfit = require('isfit-fbs-base').isfit_global;
     isfit.reInit(host,username,password,__dirname.replace('routes','isfit_template'),res);
     
   }
 
 });
+```
+
 
 这个例子重新设置bss地址，isfit.reinit将指定目录的模板同步到指定bss上，同时更新自己的数据库和消息队列地址，
 完成后，reinit调用exit让nodejs退出，pm2会重新启动nodejs。
 
 使用数据库的例子：
-
+```javascript
 const isfit = require('isfit-fbs-base');
 var express = require('express');
 var router = express.Router();
@@ -78,7 +82,7 @@ router.get('/trajectoryHistory',function(req,res){
 })
 module.exports = router;
 
-
+```
 
 
 背景知识
@@ -162,7 +166,7 @@ bss.config配置文件中记录了bss的地址，该文件和app.js在同一个�
 {"host":"http://127.0.0.1:8080","user":"admin","pswd":"123456","serverId":1}
 
 启动时需要调用init函数，该函数将进行初始化。
-
+```javascript
 isfit_gobal.init = function beginIsFit() {
 
     try {
@@ -186,8 +190,9 @@ isfit_gobal.init = function beginIsFit() {
     regModule(isfit_gobal.emitter);
     
 }
-
+```
 其中regModule函数，如下：
+```javascript
 function regModule(emitter) {
 
 emitter.on('amq_connected', function (client) {
@@ -207,6 +212,6 @@ AMQ.init(isfit_gobal.emitter);
 
 
 }
-
+```
 当AMQ启动时会读取amq.config中关于消息队列的内容，并根据配置连接消息队列。消息队列连接成功，并获取了fbs_info消息后，onInfo函数将进行数据库的链接。
 同时提供一个接口reInit来更新两个文件的配置。
