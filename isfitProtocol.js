@@ -68,8 +68,86 @@ function asynSend(name, svrInfo, params) {
         });
     }));
 }
+let crypto = require('crypto');
+let md5 = crypto.createHash('md5');
+
+function getToken(svrInfo){
+    let options = {
+        uri: svrInfo.host + "/login",
+        method: 'POST',
+        json: true,
+        body:{jsonRPC:'2.0',method:'',id:'',params:{userName:svrInfo.user,paswd:md5.update(svrInfo.pswd).digest('hex')}},
+        transform: function (body, response, resolveWithFullResponse) {
+            let token = response['headers']['msj_token'];
+            if(token){
+                svrInfo.token = token;
+            }
+            return body;
+        }
+    };
+    return new Promise((fulfill,reject)=>{
+        rp(options).then((res)=>{
+            if(!res.error && svrInfo.token){
+                fulfill(svrInfo);
+            }
+            else{
+                reject(res.error);
+            }
+            
+        }).catch(err=>{
+            reject(err);
+        })
+    })
+    
+}
+
 exports.asynSend = asynSend;
-function sendProtocol(name, svrinfo, params) {
+function sendProtocol(name,svrInfo,params){
+    return new Promise(((fulfill, reject) => {
+        sendProtocolImp(name, svrInfo, params).then((rep) => {
+            if (rep) {
+               
+                if (rep.result) {
+                    fulfill(rep);
+
+                }
+                
+                else if (rep.error) {
+                    console.error(JSON.stringify(rep) + " request :" + JSON.stringify(params));
+                    reject(rep);
+                }
+                else{
+                    fulfill(rep);
+                }
+            }
+        }).catch((error) => {
+            if(error.statusCode == 401){
+                getToken(svrInfo).then(
+                    sendProtocolImp(name,svrInfo,params).then((response)=>{
+                        if(response.result){
+                            fulfill(response);
+                        }
+                        else if(response){
+                            reject(response.error);
+                        }
+                        else{
+                            fulfill(response);
+                        }
+                        
+                    })
+                ).catch(err=>{
+                    reject(err)
+                });
+            }
+            else{
+                reject(error);
+                console.error("sendProtocol error", error);
+            }
+           
+        });
+    }));
+}
+function sendProtocolImp(name, svrinfo, params) {
     if (svrinfo && exports.protocols) {
 
         let template = exports.protocols.find({name:name});
@@ -104,8 +182,25 @@ function sendProtocol(name, svrinfo, params) {
                     uri: svrinfo.host + "/" + encodeURI(url),
                     method: template.method,
                     json: true,
-                    body: body
+                    body: body,
+                    transform: function (body, response, resolveWithFullResponse) {
+                        let token = response['headers']['msj_token'];
+                        if(token){
+                            svrinfo.token = token;
+                        }
+                        return body;
+                    }
                 };
+                if(svrinfo.token){
+                    if(options['headers']){
+                        options['headers']['msj_token'] = svrinfo.token
+                    }
+                    else{
+                        options['headers'] = {'msj_token':svrinfo.token};
+                    }
+                   
+
+                }
                 return rp(options);
 
             }
