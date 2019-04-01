@@ -78,7 +78,7 @@ function getToken(svrInfo){
         json: true,
         body:{jsonRPC:'2.0',method:'',id:'',params:{userName:svrInfo.user,paswd:md5.update(svrInfo.pswd).digest('hex')}},
         transform: function (body, response, resolveWithFullResponse) {
-            let token = response['headers']['msj_token'];
+            let token = response['headers']['Authorization'];
             if(token){
                 svrInfo.token = token;
             }
@@ -184,7 +184,7 @@ function sendProtocolImp(name, svrinfo, params) {
                     json: true,
                     body: body,
                     transform: function (body, response, resolveWithFullResponse) {
-                        let token = response['headers']['msj_token'];
+                        let token = response['headers']['Authorization'];
                         if(token){
                             svrinfo.token = token;
                         }
@@ -193,10 +193,10 @@ function sendProtocolImp(name, svrinfo, params) {
                 };
                 if(svrinfo.token){
                     if(options['headers']){
-                        options['headers']['msj_token'] = svrinfo.token
+                        options['headers']['Authorization'] = svrinfo.token
                     }
                     else{
-                        options['headers'] = {'msj_token':svrinfo.token};
+                        options['headers'] = {'Authorization':svrinfo.token};
                     }
                    
 
