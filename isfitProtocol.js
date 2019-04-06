@@ -73,7 +73,7 @@ let md5 = crypto.createHash('md5');
 
 function getToken(svrInfo){
     let options = {
-        uri: svrInfo.host + "/login",
+        uri: svrInfo.host + "/login/",
         method: 'POST',
         json: true,
         body:{jsonRPC:'2.0',method:'',id:'',params:{userName:svrInfo.user,paswd:md5.update(svrInfo.pswd).digest('hex')}},
