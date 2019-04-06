@@ -69,16 +69,30 @@ function asynSend(name, svrInfo, params) {
     }));
 }
 let crypto = require('crypto');
-let md5 = crypto.createHash('md5');
+
+function getTokenFromResp(response){
+    if(response){
+        let headers = response['headers'];
+        if(headers){
+            let token = headers['Authorization'];
+            if(token){
+                return token;
+            }
+            return headers['authorization']
+        }
+    }
+    return null;
+}
 
 function getToken(svrInfo){
+    let md5 = crypto.createHash('md5');
     let options = {
         uri: svrInfo.host + "/login/",
         method: 'POST',
         json: true,
         body:{jsonRPC:'2.0',method:'',id:'',params:{userName:svrInfo.user,paswd:md5.update(svrInfo.pswd).digest('hex')}},
         transform: function (body, response, resolveWithFullResponse) {
-            let token = response['headers']['Authorization'];
+            let token = getTokenFromResp(response);
             if(token){
                 svrInfo.token = token;
             }
@@ -184,7 +198,7 @@ function sendProtocolImp(name, svrinfo, params) {
                     json: true,
                     body: body,
                     transform: function (body, response, resolveWithFullResponse) {
-                        let token = response['headers']['Authorization'];
+                        let token  = getTokenFromResp(response);
                         if(token){
                             svrinfo.token = token;
                         }
@@ -201,6 +215,7 @@ function sendProtocolImp(name, svrinfo, params) {
                    
 
                 }
+                console.log("send protocol " + options.uri + " " +  options.method);
                 return rp(options);
 
             }
