@@ -136,8 +136,8 @@ function sendProtocol(name,svrInfo,params){
             }
         }).catch((error) => {
             if(error.statusCode == 401){
-                getToken(svrInfo).then(
-                    sendProtocolImp(name,svrInfo,params).then((response)=>{
+                getToken(svrInfo).then((newSvrInfo)=>{
+                    sendProtocolImp(name,newSvrInfo,params).then((response)=>{
                         if(response.result){
                             fulfill(response);
                         }
@@ -149,7 +149,10 @@ function sendProtocol(name,svrInfo,params){
                         }
                         
                     })
-                ).catch(err=>{
+
+                })
+                   
+                .catch(err=>{
                     reject(err)
                 });
             }
