@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 let Pro = require('./isfitProtocol');
-function createObjByRelation(relation, map, templateId, parentId, name, bid, svrInfo) {
+function createObjByRelation(relation, map, templateId, parentId, name, bid, svrInfo,py) {
     //{ [key: string]: ObjInfo; }
     return new Promise(((fulfill, reject) => {
         let obj = map[relation];
@@ -13,7 +13,8 @@ function createObjByRelation(relation, map, templateId, parentId, name, bid, svr
                 templateId: templateId,
                 name: name,
                 parentId: parentId,
-                businessId: bid
+                businessId: bid,
+                py:py
             }).then((rep) => {
                 if (rep && rep.result) {
                     fulfill(rep.result[0]);
@@ -30,13 +31,14 @@ function createObjByRelation(relation, map, templateId, parentId, name, bid, svr
     }));
 }
 exports.createObjByRelation = createObjByRelation;
-function createObj(templateId, parentId, name, bid, svrInfo) {
+function createObj(templateId, parentId, name, bid, svrInfo,py) {
     return new Promise(((fulfill, reject) => {
         Pro.sendProtocol("createObj", svrInfo, {
             templateId: templateId,
             name: name,
             parentId: parentId,
-            businessId: bid
+            businessId: bid,
+            py:py
         }).then((rep) => {
             if (rep && rep.result) {
                 fulfill(rep.result[0]);
