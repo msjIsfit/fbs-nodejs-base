@@ -2,7 +2,7 @@
   "protocol": [
     {
       "name": "createObj",
-      "body": "{\n    \"jsonrpc\": \"2.0\",\n    \"params\": {\n        \"obj\": {\n            \"templateId\": \"??templateId??\",\n            \"parentId\": \"??parentId??\",\n            \"businessId\":\"??businessId??\"\n        },\n        \"count\": 1,\n        \"names\": [\n            \"??name??\"\n        ]\n    \"pys\": [\n            \"??py??\"\n        ]\n },\n    \"method\": \"\",\n    \"id\": \"1\"\n}",
+      "body": "{\n    \"jsonrpc\": \"2.0\",\n    \"params\": {\n        \"obj\": {\n            \"templateId\": \"??templateId??\",\n            \"parentId\": \"??parentId??\",\n            \"businessId\":\"??businessId??\"\n        },\n        \"count\": 1,\n        \"names\": [\n            \"??name??\"\n        ],\n    \"pys\": [\n            \"??py??\"\n        ]\n },\n    \"method\": \"\",\n    \"id\": \"1\"\n}",
       "method": "POST",
       "url": "objs/"
     },
